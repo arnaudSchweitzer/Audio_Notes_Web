@@ -52,7 +52,8 @@ function Login({setIsAuth}) {
     }
 
     return (
-        <div className='signInPage'>
+      <div className='loginPage'>
+        <div className='cpContainer'>
           <p>
             Hello Creator
           </p>
@@ -61,6 +62,7 @@ function Login({setIsAuth}) {
 
             <button onClick={signUp}>Create account</button>
             <button onClick={logIn}>Log In</button>
+        </div>
         </div>
     );
 }
