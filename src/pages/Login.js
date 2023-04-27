@@ -2,9 +2,15 @@ import '../App.css';
 import React, { useState } from 'react';
 import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth'
 import app from '../firebase-config';
+import auth from '../firebase-config';
+import {useNavigate} from "react-router-dom";
 
 
 function Login({setIsAuth}) {
+
+  let navigate = useNavigate();
+
+
     const auth = getAuth(app);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -32,7 +38,10 @@ function Login({setIsAuth}) {
     // Signed in 
     const user = userCredential.user;
     console.log(user);
-    alert("This user has successfully loged in")
+    alert("This user has successfully loged in");
+    localStorage.setItem("isAuth", true);
+    setIsAuth(true);
+    navigate("/");
     // ...
   })
   .catch((error) => {
