@@ -21,9 +21,10 @@ function App() {
   return (
   <Router>
     <nav>
+    {!isAuth ? (<Link to="/login">Login</Link>):(<button onClick={signUserOut}>Log Out</button>)}
       <Link to="/">Home</Link>     
       <Link to="create/">Create Post</Link>
-      {!isAuth ? (<Link to="/login">Login</Link>):(<button onClick={signUserOut}>Log Out</button>)}
+      
     </nav>
     <Routes>
       <Route path="/" element={<Home />}/>

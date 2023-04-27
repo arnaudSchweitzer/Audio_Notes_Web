@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function Post() {
+const [title, setTitle] = useState("");
+const [postText, setPostText] = useState("");
+
     return (
     <div className ="createPostPage">
 
@@ -8,11 +11,13 @@ function Post() {
     <h1>Create a Post</h1>
     <div className="inpuGp">
         <label>Title:</label>
-        <input placeholder = "Title..."/>
+        <input placeholder = "Title..." 
+        onChange={(event) => {
+            setTitle(event.target.value)}}/>
     </div>
     <div className = "inputGp">
         <label>Description:</label>
-        <input textarea="Description"/>
+        <textarea placeholder="Description"/>
     </div>
     <button>Submit Podcast</button>
     </div>
