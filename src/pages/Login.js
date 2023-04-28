@@ -2,8 +2,12 @@ import '../App.css';
 import React, { useState } from 'react';
 import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth'
 import app from '../firebase-config';
-import auth from '../firebase-config';
+import {auth, db} from '../firebase-config';
 import {useNavigate} from "react-router-dom";
+import { collection, doc, setDoc } from "firebase/firestore"; 
+
+
+
 
 
 function Login({setIsAuth}) {
@@ -17,11 +21,19 @@ function Login({setIsAuth}) {
     const signUp = () => {
 
         createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
+          .then(async (userCredential) => {
             // Signed in 
             const user = userCredential.user;
             console.log(user);
-            alert("Successfully created account")
+            alert("Successfully created account");
+            const usersRef = collection(db, "Users");
+            await setDoc(doc(usersRef, user.uid), {
+              Name: "OUI",
+              Status: "CREATOR",
+              });
+              localStorage.setItem("isAuth", true);
+              setIsAuth(true);
+              navigate("/");
             // ...
           })
           .catch((error) => {
@@ -39,6 +51,7 @@ function Login({setIsAuth}) {
     const user = userCredential.user;
     console.log(user);
     alert("This user has successfully loged in");
+
     localStorage.setItem("isAuth", true);
     setIsAuth(true);
     navigate("/");
@@ -49,6 +62,9 @@ function Login({setIsAuth}) {
     //const errorMessage = error.message;
     alert(errorCode)
   });
+
+  
+
     }
 
     return (
