@@ -33,9 +33,9 @@ function CreateAcc({setIsAuth}) {
             const docRef = doc(db, 'Users', user.uid);
             const docSnap = await getDoc(docRef);
             userName = docSnap.get('Name');
-            alert(userName);
+            alert('Successfully registered!');
               setIsAuth(true);
-              navigate("/create");
+              navigate("/create", { state: { userName: userName } });
             // ...
           })
           .catch((error) => {
