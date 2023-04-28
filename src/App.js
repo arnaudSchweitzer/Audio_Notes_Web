@@ -15,7 +15,7 @@ function App() {
     signOut(auth).then(()=>{
       localStorage.clear();
       setIsAuth(false);
-      window.location.pathname  = "/login";
+      window.location.pathname  = "/";
     });
   };
 
@@ -23,15 +23,13 @@ function App() {
   <Router>
     <nav>
     {!isAuth ? (<Link to="/">Login</Link>):(<button onClick={signUserOut}>Log Out</button>)}
-      <Link to="/home">Home</Link>     
-      <Link to="create/">Create Post</Link>
       <Link to="/createAcc">Create Account</Link>
       
     </nav>
     <Routes>
-      <Route path="/" element={<Home />}/>
+      <Route path="/home" element={<Home />}/>
       <Route path="/create" element={<CreatePost />}/>
-      <Route path="/login" element={<Login setIsAuth={setIsAuth}/>}/>
+      <Route path="/" element={<Login setIsAuth={setIsAuth}/>}/>
       <Route path="/createAcc" element={<CreateAcc setIsAuth={setIsAuth}/>}/>
     </Routes>
     </Router>

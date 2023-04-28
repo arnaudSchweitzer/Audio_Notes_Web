@@ -4,7 +4,9 @@ import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 import app from '../firebase-config';
 import {auth, db} from '../firebase-config';
 import {useNavigate} from "react-router-dom";
-import { collection, doc, setDoc } from "firebase/firestore"; 
+import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
+
+let userName = '';
 
 function CreateAcc({setIsAuth}) {
 
@@ -21,15 +23,19 @@ function CreateAcc({setIsAuth}) {
             // Signed in 
             const user = userCredential.user;
             console.log(user);
-            alert("Successfully created account");
             const usersRef = collection(db, "Users");
             await setDoc(doc(usersRef, user.uid), {
               Name: name,
               Status: "CREATOR",
               });
               localStorage.setItem("isAuth", true);
+                          
+            const docRef = doc(db, 'Users', user.uid);
+            const docSnap = await getDoc(docRef);
+            userName = docSnap.get('Name');
+            alert(userName);
               setIsAuth(true);
-              navigate("/home");
+              navigate("/create");
             // ...
           })
           .catch((error) => {
