@@ -5,12 +5,11 @@ import app from "../firebase-config";
 import { auth, db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
-
-let userName = "";
+import { useCtx } from "../utils/context";
 
 function Login({ setIsAuth }) {
   let navigate = useNavigate();
-
+  const { setUserName } = useCtx();
   const auth = getAuth(app);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,8 +48,7 @@ function Login({ setIsAuth }) {
 
         const docRef = doc(db, "Users", user.uid);
         const docSnap = await getDoc(docRef);
-        userName = docSnap.get("Name");
-
+        setUserName(docSnap.get("Name"));
         alert("Successfully logged in!");
 
         localStorage.setItem("isAuth", true);

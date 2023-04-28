@@ -15,11 +15,12 @@ import { signOut } from "firebase/auth";
 import { auth } from "./firebase-config";
 import { useCtx } from "./utils/context";
 function App() {
-  const { userName } = useCtx();
+  const { setUserName } = useCtx();
   const [isAuth, setIsAuth] = useState(false);
 
   const signUserOut = () => {
     signOut(auth).then(() => {
+      setUserName("");
       localStorage.clear();
       setIsAuth(false);
       window.location.pathname = "/";
